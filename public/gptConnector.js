@@ -2,14 +2,14 @@
 // const { OpenAI } = require("openai");
 // const app = express();
 
-import {OpenAI} from 'openai';
+import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
 });
 
-function generateAnswer() {
+async function generateAnswer() {
     const question = document.getElementById("question")
 
     console.log("test1")
@@ -53,4 +53,3 @@ function generateAnswer() {
         return `Code changes in ${activity.file}`;
     }
 }
-

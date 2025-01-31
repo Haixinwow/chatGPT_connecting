@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="gptConnector.js"></script>
+    <title>ChatGPT API Test For CSE599</title>
+</head>
+<body>
+    <form>
+        <label>Ask ChatGPT a question!</label><br>
+        <input type="text" id="question" name="user_question" placeholder="How do I do this...">
+        <button type="submit" onclick="generateAnswer()">submit</button>
+    </form>
+</body>
+</html>
+
+
+
+
+
+<!-- 
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    font-src 'self' data: http://localhost:8000;
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+">
+
+    <script type="module" src="gptConnector.js"></script>
+    <title>ChatGPT API Test For CSE599</title>
+</head>
+<body>
+    <form id="chat-form">
+        <label>Ask ChatGPT a question!</label><br>
+        <input type="text" id="question" name="user_question" placeholder="How do I do this...">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="answer"></div>
+    
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const question = document.getElementById('question').value;
+            const answerDiv = document.getElementById('answer');
+            
+            const response = fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userQuestion: question }),
+            });
+
+            if (response.ok) {
+                answerDiv.innerHTML = ''; 
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let done, value;
+                while (!done) {
+                    ({ done, value } = await reader.read());
+                    answerDiv.innerHTML += decoder.decode(value, { stream: true });
+                }
+            } else {
+                answerDiv.innerHTML = 'Error occurred: ' + response.statusText;
+            }
+        });
+    </script>
+</body>
+</html> -->

@@ -1,31 +1,31 @@
 import express from 'express';
 import { OpenAI } from 'openai';
-import dotenv from 'dotenv';  // Import dotenv
-dotenv.config();  // Load environment variables
 
 const app = express();
-const port = 5000;
-
-app.use(express.json());  // Parse incoming JSON requests
-
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,  // Use the API key from environment variables
+  apiKey:process.env.OPENAI_API_KEY,
 });
+
+app.use(express.json());
+app.use(express.static('public')); // Serve static files (like index.html)
 
 app.post('/generate', async (req, res) => {
   try {
-    const { question } = req.body;
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',  // Ensure you're using the correct model
-      messages: [{ role: 'user', content: question }],
-    });
-    res.json({ response: response.choices[0].message.content });
+      const { message } = req.body;  // Ensure you're extracting data correctly
+
+      const response = await openai.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [{ role: "user", content: message }],
+      });
+
+      res.json(response); // Send back OpenAI response
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to generate response' });
+      console.error("Error in /generate:", error);
+      res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+
+app.listen(8000, () => {
+  console.log('Server running on http://localhost:8000');
 });
